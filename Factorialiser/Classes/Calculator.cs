@@ -17,13 +17,29 @@ namespace Factorialiser.Classes
 
         public static int Factorial(int input)
         {
-            throw new NotImplementedException();
-            int Factorial(int i)
+            logger.Trace("Calculating " + input);
+            try
             {
-                if (i <= 1)
+                if (input == 1)
+                {
                     return 1;
-                return i * Factorial(i - 1);
-
+                }
+                else if (input > 30) throw new NumberTooHighException(input);
+                else if (input < 1) throw new NumberTooLowException(input);
+                else
+                {
+                    return input * Factorial(input - 1);
+                }
+            }
+            catch(NumberTooLowException ex)
+            {
+                logger.Debug("Input too low: " + input);
+                throw ex;
+            }
+            catch (NumberTooHighException ex)
+            {
+                logger.Debug("Input too High: " + input);
+                throw ex;
             }
           
             // this method should:
